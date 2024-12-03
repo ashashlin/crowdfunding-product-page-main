@@ -1,5 +1,6 @@
 import { rewards, selectReward } from "../data/rewards.js";
 import { projectData } from "../data/projectData.js";
+import { renderSelectModal } from "./selectModal.js";
 
 function renderRewards() {
   let rewardsHTML = '';
@@ -114,3 +115,10 @@ function renderProjectData() {
 }
 
 renderProjectData();
+
+document.querySelector('.js-project__bookmark')
+  .addEventListener('click', () => {
+    document.querySelector('.js-project__bookmark').classList.toggle('bookmarked');
+  });
+
+renderSelectModal();
