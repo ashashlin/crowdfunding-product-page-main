@@ -1,0 +1,734 @@
+@import url('https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&display=swap');
+
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+body {
+  /* 3. Add accessible line-height */
+  line-height: 1.5;
+  /* 4. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 5. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 6. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 7. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 8. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  9. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+:root {
+  --ff-1: Commissioner;
+
+  --fs-1: .875rem;
+  --fs-2: 1rem;
+  --fs-3: 1.125rem;
+  --fs-4: 1.25rem;
+  --fs-5: 1.5rem;
+  --fs-6: 1.75rem;
+  --fs-7: 2rem;
+
+  --fw-400: 400;
+  --fw-500: 500;
+  --fw-700: 700;
+
+  --dark-grey: #7A7A7A;
+  --light-grey: #B1B1B1;
+  --v-light-grey: #b1b1b12f;
+  --black: #000000;
+  --white: #FFFFFF;
+  --almost-white: #FAFAFA;
+  --cyan: #3CB3AB;
+  --dark-cyan: #147A73;
+
+  --border-1: 1px solid rgba(0 0 0 / .15);
+
+  --br-1: 2.1rem;
+}
+
+body {
+  position: relative;
+  font-family: var(--ff-1);
+  color: var(--dark-grey);
+  line-height: 1.875;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.header__img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1000;
+}
+
+.header__container {
+  position: relative;
+  padding: 2rem 1.5rem 12rem;
+}
+
+.header__logo-nav-btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header ul {
+  list-style: none;
+}
+
+.header__close-nav,
+.header__nav {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.header__nav.active {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 87%;
+  max-width: 45rem;
+  max-height: 50rem;
+  overflow-y: auto;
+}
+
+.header__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  background-color: var(--white);
+  color: var(--black);
+  padding: 1.5rem;
+  border-radius: .5rem;
+}
+
+.header__nav-list li {
+  position: relative;
+}
+
+.header__nav-list li::after,
+.select-modal__pledge-input::before {
+  position: absolute;
+  bottom: -90%;
+  left: 0;
+  right: 0;
+  content: '';
+  height: 1px;
+  background-color: var(--light-grey);
+  opacity: .3;
+}
+
+.overlay.show {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(0 0 0 / .3), var(--white));
+}
+
+.main {
+  padding: 0 1.5rem 4.75rem;
+  background-color: var(--almost-white);
+}
+
+.main__project {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 45.625rem;
+  margin: 0 auto;
+  font-size: var(--fs-1);
+}
+
+.project__header,
+.project__data,
+.project__about {
+  background-color: var(--white);
+  padding: 2.5rem 1.5rem;
+  border-radius: .5rem;
+}
+
+.project__header {
+  position: relative;
+  text-align: center;
+  padding-top: 3.25rem;
+  margin-top: -2.8rem;
+}
+
+.project__logo {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.project__product {
+  font-size: var(--fs-4);
+  color: var(--black);
+  line-height: 1.3;
+  margin-bottom: 1rem;;
+}
+
+.project__product-desc {
+  margin-bottom: 1.5rem;
+}
+
+.project__back-bookmark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5625rem;
+  flex-wrap: wrap;
+}
+
+.project__bookmark {
+  cursor: pointer;
+  transition: opacity 150ms;
+}
+
+.project__bookmark:hover {
+  opacity: .7;
+}
+
+.project__bookmark.bookmarked .project__bookmark-icon g circle {
+  fill: var(--dark-cyan);
+}
+
+.project__bookmark.bookmarked .project__bookmark-icon g path {
+  fill: var(--white);
+}
+
+.project__bookmark.bookmarked .project__bookmark-text  {
+  background-color: #147a7311;
+  color: var(--dark-cyan);
+}
+
+.project__bookmark-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project__bookmarked .project__bookmark-icon circle {
+ fill: var(--cyan);
+}
+
+.project__bookmarked .project__bookmark-icon path {
+  fill: var(--white);
+ }
+
+.project__btn {
+  font-size: var(--fs-2);
+  font-weight: var(--fw-700);
+  background-color: var(--cyan);
+  color: var(--white);
+  padding: .7rem 2.4rem .9rem;
+  border-radius: var(--br-1);
+  transition: background-color 150ms;
+}
+
+.project__btn:hover {
+  background-color: var(--dark-cyan);
+}
+
+.project__bookmark-text {
+  display: none;
+}
+
+.data__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.data__value-text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.data__value-text:not(:last-child)::after {
+  position: absolute;
+  bottom: -40%;
+  content: '';
+  width: 5rem;
+  height: 1px;
+  background-color: var(--light-grey);
+  opacity: .5;
+}
+
+.data__value {
+  font-size: var(--fs-7);
+  font-weight: var(--fw-700);
+  color: var(--black);
+  line-height: 1.5;
+}
+
+.data__progress-bar {
+  position: relative;
+  width: 100%;
+  height: .75rem;
+  background-color: var(--v-light-grey);
+  border-radius: var(--br-1);
+}
+
+.data__progress {
+  position: absolute;
+  width: 78%;
+  height: .75rem;
+  background-color: var(--cyan);
+  border-radius: var(--br-1);
+}
+
+.about__title {
+  color: var(--black);
+  margin-bottom: 1.5rem;
+}
+
+.about__desc {
+  margin-bottom: 2rem;
+}
+
+.about__pledges,
+.select-modal__pledges {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.about__pledge,
+.select-modal__pledge {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border: var(--border-1);
+  border-radius: .5rem;
+}
+
+.pledge__reward {
+  color: var(--black);
+}
+
+.pledge__pledge-amt {
+  font-weight: var(--fw-500);
+  color: var(--cyan);
+}
+
+.pledge__q-btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 1.5rem;
+}
+
+.pledge__reward-info {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.pledge__reward-quantity {
+  font-size: var(--fs-7);
+  font-weight: var(--fw-700);
+  color: var(--black);
+  line-height: 1.2;
+}
+
+.pledge__reward-btn {
+  font-size: var(--fs-1);
+  padding: .7rem 2rem;
+}
+
+.reward-out-of-stock {
+  position: relative;
+}
+
+.out-of-stock-overlay.show {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255 255 255 / .5);
+}
+
+.reward-out-of-stock .pledge__reward-pledge {
+  margin-top: -1.5rem;
+}
+
+.reward-out-of-stock .pledge__reward-btn {
+  background-color: var(--light-grey);
+  cursor: auto;
+}
+
+.modal {
+  border: none;
+  border-radius: .5rem;
+  margin: 0 auto;
+}
+
+.project__modal::backdrop {
+  background-color: rgba(0 0 0 / .5);
+}
+
+.project__modal {
+  position: absolute;
+  top: 7.5625rem;
+  width: 87%;
+  max-width: 45.625rem;
+  padding: 2rem 1.5rem;
+  color: var(--dark-grey);
+}
+
+.select-modal__header {
+  margin-bottom: 1.5rem;
+}
+
+.select-modal__top {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.select-modal__title,
+.success-modal__title {
+  font-size: var(--fs-3);
+  color: var(--black);
+}
+
+.select-modal__pledge {
+  padding: 0;
+  gap: 0;
+}
+
+.select-modal__pledge.selected {
+  border: 2px solid var(--cyan);
+  border-radius: .5rem;
+}
+
+.select-modal__pledge-details {
+  display: grid;
+  grid-template-columns: min-content auto;
+  align-items: center;
+  gap: 1.5rem 1rem;
+  padding: 1.5rem;
+}
+
+.select-modal__radio {
+  justify-self: start;
+  width: 1.5rem;
+  height: 1.5rem;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 50%;
+  border: .3125rem solid var(--white);
+  outline: var(--border-1);
+  cursor: pointer;
+}
+
+.select-modal__radio:checked {
+  background-color: var(--cyan);
+}
+
+.select-modal__reward {
+  color: var(--black);
+  transition: color 150ms;
+  cursor: pointer;;
+}
+
+.select-modal__reward:hover {
+  color: var(--cyan);
+}
+
+.select-modal__pledge-amt {
+  font-weight: var(--fw-700);
+  color: var(--cyan);
+}
+
+.select-modal__pledge-info {
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
+}
+
+.select-modal__reward-info {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.select-modal__reward-quantity {
+  font-size: var(--fs-3);
+  font-weight: var(--fw-700);
+  color: var(--black);
+}
+
+.select-modal__pledge-input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.select-modal__pledge-input::before {
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--dark-grey);
+}
+
+.pledge-input__input-btn {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pledge-input-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  font-weight: var(--fw-700);
+  max-width: 6.25rem;
+  height: 3rem;
+  border: var(--border-1);
+  border-radius: var(--br-1);
+}
+
+.pledge-input-box.active {
+  border: 1px solid var(--cyan);
+}
+
+.pledge-amt {
+  max-width: 50%;
+  border: none;
+}
+
+.pledge-amt:focus {
+  outline: none;
+}
+
+.select-modal__btn {
+  font-size: var(--fs-1);
+  padding: .5rem 1.5rem .6rem;
+}
+
+.project__success-modal {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  max-width: 33.75rem;
+  padding-bottom: 2.5rem;
+}
+
+.success-modal__img {
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+}
+
+.success-modal__title,
+.success-modal__text {
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 90rem) {
+  .header__container {
+    display: flex;
+    justify-content: space-between;
+    padding: 3rem 10.375rem 20.75rem;
+  }
+
+  .header__open-nav {
+    display: none;
+  }
+
+  .header__nav {
+    max-height: 20rem;
+  }
+
+  .header__nav-list {
+    flex-direction: row;
+    gap: 2rem;
+    background-color: transparent;
+    color: var(--white);
+    padding: 0;
+  }
+
+  .project__header,
+  .project__data,
+  .project__about,
+  .project__modal {
+    font-size: var(--fs-2);
+    padding: 3rem;
+  }
+
+  .project__header {
+    padding-top: 3.5rem;
+    margin-top: -5.6rem;
+  }
+
+  .project__product {
+   font-size: var(--fs-6);
+  }
+
+  .project__product-desc,
+  .about__desc {
+    margin-bottom: 2.5rem;
+  }
+
+  .project__back-bookmark {
+    justify-content: space-between;
+  }
+
+  .project__bookmark {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-weight: var(--fw-700);
+  }
+
+  .project__bookmark-btn {
+    position: absolute;
+    left: 0;
+    padding: 0;
+  }
+
+  .project__bookmark-text {
+    display: inline;
+    text-align: end;
+    background-color: var(--v-light-grey);
+    width: 10.875rem;
+    padding: .7rem 1.5rem .9rem;
+    border-radius: var(--br-1);
+  }
+
+  .data__container {
+    flex-direction: row;
+  }
+
+  .data__value-text {
+    flex: 1;
+    align-items: start;
+  }
+
+  .data__value-text:not(:last-child)::after {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    height: auto;
+  }
+
+  .about__title {
+    margin-bottom: 2.1875rem;
+  }
+
+  .about__pledge {
+    padding: 2.375rem 2rem 2rem;
+  }
+
+  .pledge__reward-pledge {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .pledge__q-btn-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .select-modal__close {
+    margin-top: -3rem;
+    margin-right: -1rem;
+  }
+
+  .select-modal__top {
+    margin-bottom: 1rem;
+  }
+
+  .select-modal__header {
+    margin-bottom: 2rem;
+  }
+
+  .select-modal__title,
+  .success-modal__title {
+    font-size: var(--fs-5);
+    color: var(--black);
+  }
+
+  .select-modal__pledge-details {
+    grid-template-columns: auto 1fr auto;
+    padding: 2rem 1.75rem;
+  }
+
+  .select-modal__pledge-input {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 1.75rem;
+  }
+
+  .select-modal__reward-pledge {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .select-modal__reward-info {
+    grid-column: 3 / -1;
+  }
+
+  .success-modal__title {
+    margin-bottom: 1rem;
+  }
+
+  .success-modal__text {
+    margin-bottom: 2rem;
+  }
+}
