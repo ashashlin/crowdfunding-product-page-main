@@ -123,12 +123,6 @@ document.querySelector('.js-project__bookmark')
 
 const selectModal = document.querySelector('.js-project__select-modal');
 
-document.body.addEventListener('click', (e) => {
-  if (!(e.target.classList.contains('js-project__back-btn'))) {
-    selectModal.close();
-  }
-});
-
 document.querySelector('.js-project__back-btn')
   addEventListener('click', (e) => {
     if (!(e.target.classList.contains('js-project__back-btn'))) {
