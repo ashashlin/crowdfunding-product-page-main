@@ -1,16 +1,20 @@
 import { rewards } from "../data/rewards.js";
 
+const rewardSelected = localStorage.getItem('rewardSelected');
+
 export function renderSelectModal() {
   let selectModalHTML = `
-    <div class="select-modal__pledge">
+    <div class="select-modal__pledge js-select-modal__pledge js-select-modal__pledge-no-reward">
       <div class="select-modal__pledge-details">
-        <input class="select-modal__radio" type="radio" name="select-modal__radio" id="radio-0">
+        <input class="select-modal__radio js-select-modal__radio-no-reward" type="radio" name="select-modal__radio" id="radio-0">
         <h4 class="select-modal__reward">
           Pledge with no reward
         </h4>
         <p class="select-modal__pledge-info">
           Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email.
         </p>
+      </div>
+      <div class="select-modal__pledge-input js-select-modal__pledge-input-no-reward">
       </div>
     </div>
   `;
@@ -23,9 +27,9 @@ export function renderSelectModal() {
 
     if (quantity > 0) {
       selectModalHTML += `
-        <div class="select-modal__pledge">
+        <div class="select-modal__pledge js-select-modal__pledge js-select-modal__pledge-${reward.id}">
           <div class="select-modal__pledge-details">
-            <input class="select-modal__radio" type="radio" name="select-modal__radio" id="radio-${reward.id}">
+            <input class="select-modal__radio js-select-modal__radio-${reward.id}" type="radio" name="select-modal__radio" id="radio-${reward.id}">
             <div class="select-modal__reward-pledge">
               <h4 class="select-modal__reward">
                 ${name}
@@ -41,15 +45,17 @@ export function renderSelectModal() {
               ${info}
             </p>
           </div>
+          <div class="select-modal__pledge-input js-select-modal__pledge-input-${reward.id}">
+          </div>
         </div>
       `;
 
     } else {
       selectModalHTML += `
-        <div class="select-modal__pledge reward-out-of-stock">
+        <div class="select-modal__pledge reward-out-of-stock js-select-modal__pledge js-select-modal__pledge-${reward.id}">
           <div class="out-of-stock-overlay"></div>
           <div class="select-modal__pledge-details">
-            <input class="select-modal__radio" type="radio" name="select-modal__radio" id="radio-${reward.id}">
+            <input class="select-modal__radio js-select-modal__radio-${reward.id}" type="radio" name="select-modal__radio" id="radio-${reward.id}">
             <div class="select-modal__reward-pledge">
               <h4 class="select-modal__reward">
                 ${name}
@@ -64,6 +70,8 @@ export function renderSelectModal() {
             <p class="select-modal__pledge-info">
               ${info}
             </p>
+          </div>
+          <div class="select-modal__pledge-input js-select-modal__pledge-input-${reward.id}">
           </div>
         </div>
       `;
@@ -72,4 +80,61 @@ export function renderSelectModal() {
 
   document.querySelector('.js-select-modal-pledges')
     .innerHTML = selectModalHTML;
+
+  if (!rewardSelected) {
+    const pledgeSelected = document.querySelector('.js-select-modal__pledge-no-reward');
+
+    const radioSelected = document.querySelector('.js-select-modal__radio-no-reward');
+
+    const pledgeInput = document.querySelector('.js-select-modal__pledge-input-no-reward');
+
+    pledgeSelected.classList.add('selected');
+
+    radioSelected.setAttribute('checked', '');
+
+    pledgeInput.innerHTML = `
+      <p class="pledge-input__text">
+        Enter your pledge
+      </p>
+      <div class="pledge-input__input-btn">
+        <div class="pledge-input-box">
+          $
+          <input class="pledge-amt" type="text" name="pledge-amount" id="pledge-amt-0">
+        </div>
+        <button class="btn project__btn select-modal__btn">
+          Continue
+        </button>
+      </div>
+    `;
+
+  } else {
+    const pledgeInput = document.querySelector(`.js-select-modal__pledge-input-${rewardSelected}`);
+
+    const pledges = document.querySelectorAll('.js-select-modal__pledge');
+
+    const radioSelected = document.querySelector(`.js-select-modal__radio-${rewardSelected}`);
+
+    pledgeInput.innerHTML = `
+      <p class="pledge-input__text">
+        Enter your pledge
+      </p>
+      <div class="pledge-input__input-btn">
+        <div class="pledge-input-box">
+          $
+          <input class="pledge-amt" type="text" name="pledge-amount" id="pledge-amt-${rewardSelected}">
+        </div>
+        <button class="btn project__btn select-modal__btn">
+          Continue
+        </button>
+      </div>
+    `;
+
+    pledges.forEach((pledge) => {
+      if (pledge.classList.contains(`js-select-modal__pledge-${rewardSelected}`)) {
+        pledge.classList.add('selected');
+      }
+    });
+
+    radioSelected.setAttribute('checked', '');
+  }
 }
