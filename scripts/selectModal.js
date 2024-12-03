@@ -1,13 +1,16 @@
-import { rewards } from "../data/rewards.js";
-
-const rewardSelected = localStorage.getItem('rewardSelected');
+import { rewards, updateRewardSelected } from "../data/rewards.js";
 
 export function renderSelectModal() {
+  const rewardSelected = localStorage.getItem('rewardSelected');
+
   let selectModalHTML = `
     <div class="select-modal__pledge js-select-modal__pledge js-select-modal__pledge-no-reward">
       <div class="select-modal__pledge-details">
-        <input class="select-modal__radio js-select-modal__radio-no-reward" type="radio" name="select-modal__radio" id="radio-0">
-        <h4 class="select-modal__reward">
+        <input class="select-modal__radio js-select-modal__radio js-select-modal__radio-no-reward"
+        data-reward-id="no-reward"
+        type="radio" name="select-modal__radio" id="radio-no-reward">
+        <h4 class="select-modal__reward js-select-modal__reward js-select-modal__reward-no-reward"
+        data-reward-id="no-reward">
           Pledge with no reward
         </h4>
         <p class="select-modal__pledge-info">
@@ -29,9 +32,12 @@ export function renderSelectModal() {
       selectModalHTML += `
         <div class="select-modal__pledge js-select-modal__pledge js-select-modal__pledge-${reward.id}">
           <div class="select-modal__pledge-details">
-            <input class="select-modal__radio js-select-modal__radio-${reward.id}" type="radio" name="select-modal__radio" id="radio-${reward.id}">
+            <input class="select-modal__radio js-select-modal__radio js-select-modal__radio-${reward.id}"
+            data-reward-id="${reward.id}"
+            type="radio" name="select-modal__radio" id="radio-${reward.id}">
             <div class="select-modal__reward-pledge">
-              <h4 class="select-modal__reward">
+              <h4 class="select-modal__reward js-select-modal__reward js-select-modal__reward-${reward.id}"
+              data-reward-id="${reward.id}">
                 ${name}
               </h4>
               <span class="select-modal__pledge-amt">
@@ -55,9 +61,12 @@ export function renderSelectModal() {
         <div class="select-modal__pledge reward-out-of-stock js-select-modal__pledge js-select-modal__pledge-${reward.id}">
           <div class="out-of-stock-overlay"></div>
           <div class="select-modal__pledge-details">
-            <input class="select-modal__radio js-select-modal__radio-${reward.id}" type="radio" name="select-modal__radio" id="radio-${reward.id}">
+            <input class="select-modal__radio js-select-modal__radio js-select-modal__radio-${reward.id}"
+            data-reward-id="${reward.id}"
+            type="radio" name="select-modal__radio" id="radio-${reward.id}">
             <div class="select-modal__reward-pledge">
-              <h4 class="select-modal__reward">
+              <h4 class="select-modal__reward js-select-modal__reward js-select-modal__reward-${reward.id}"
+              data-reward-id="${reward.id}">
                 ${name}
               </h4>
               <span class="select-modal__pledge-amt">
@@ -99,7 +108,7 @@ export function renderSelectModal() {
       <div class="pledge-input__input-btn">
         <div class="pledge-input-box">
           $
-          <input class="pledge-amt" type="text" name="pledge-amount" id="pledge-amt-0">
+          <input class="pledge-amt" type="text" name="pledge-amount" id="pledge-amt-no-reward">
         </div>
         <button class="btn project__btn select-modal__btn">
           Continue
@@ -137,4 +146,28 @@ export function renderSelectModal() {
 
     radioSelected.setAttribute('checked', '');
   }
+
+  const radios = document.querySelectorAll('.js-select-modal__radio');
+
+  radios.forEach((radio) => {
+    radio.addEventListener('click', () => {
+      const {rewardId} = radio.dataset;
+
+      updateRewardSelected(rewardId);
+
+      renderSelectModal();
+    });
+  });
+
+  const selectModalRewards = document.querySelectorAll('.js-select-modal__reward');
+
+  selectModalRewards.forEach((reward) => {
+    reward.addEventListener('click', () => {
+      const {rewardId} = reward.dataset;
+
+      updateRewardSelected(rewardId);
+
+      renderSelectModal();
+    });
+  });
 }

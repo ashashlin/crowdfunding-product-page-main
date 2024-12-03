@@ -121,4 +121,10 @@ document.querySelector('.js-project__bookmark')
     document.querySelector('.js-project__bookmark').classList.toggle('bookmarked');
   });
 
-renderSelectModal();
+const selectModal = document.querySelector('.js-project__select-modal');
+
+document.querySelector('.js-project__back-btn')
+  addEventListener('click', () => {
+    renderSelectModal();
+    selectModal.showModal();
+  });
