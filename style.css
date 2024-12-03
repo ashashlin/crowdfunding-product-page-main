@@ -385,19 +385,14 @@ a {
   position: relative;
 }
 
-.out-of-stock-overlay.show {
+.out-of-stock-overlay {
   position: absolute;
   inset: 0;
   background-color: rgba(255 255 255 / .5);
 }
 
-.reward-out-of-stock .pledge__reward-pledge {
-  margin-top: -1.5rem;
-}
-
 .reward-out-of-stock .pledge__reward-btn {
   background-color: var(--light-grey);
-  cursor: auto;
 }
 
 .modal {

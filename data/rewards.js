@@ -17,3 +17,16 @@ export const rewards = [{
   quantity: 0,
   info: "You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added to our Backer member list. Shipping is included."
 }];
+
+export function selectReward() {
+  let rewardSelected;
+
+  document.querySelectorAll('.js-select-reward')
+    .forEach((button) => {
+      button.addEventListener('click', () => {
+        const {rewardId} = button.dataset;
+        rewardSelected = rewardId;
+        localStorage.setItem('rewardSelected', rewardSelected);
+      });
+    });
+}
