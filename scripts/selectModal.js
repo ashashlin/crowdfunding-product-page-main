@@ -204,11 +204,6 @@ export function renderSelectModal() {
       const inputElement = document.querySelector(`.js-pledge-amt-${rewardId}`);
       const input = Number(inputElement.value);
 
-      projectData.backedAmt += input;
-      projectData.backers++;
-
-      localStorage.setItem('projectData', JSON.stringify(projectData));
-
       let matchingReward;
 
       rewards.forEach((reward) => {
@@ -216,6 +211,24 @@ export function renderSelectModal() {
           matchingReward = reward;
         }
       });
+
+      if (matchingReward) {
+        const {pledgeAmt} = matchingReward;
+
+        if (input < pledgeAmt) {
+          return;
+        }
+
+      } else {
+        if (input <= 0) {
+          return;
+        }
+      }
+
+      projectData.backedAmt += input;
+      projectData.backers++;
+
+      localStorage.setItem('projectData', JSON.stringify(projectData));
 
       if (matchingReward) {
         matchingReward.quantity--;
@@ -233,6 +246,11 @@ export function renderSelectModal() {
       const successModal = document.querySelector('.js-project__success-modal');
 
       successModal.showModal();
+
+      document.querySelector('.js-success-modal__btn')
+        .addEventListener('click', () => {
+          successModal.close();
+        });
     });
   });
 
