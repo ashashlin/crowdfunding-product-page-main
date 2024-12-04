@@ -639,6 +639,10 @@ a {
     padding: 0;
   }
 
+  .project__bookmark.bookmarked .project__bookmark-btn {
+    left: -10%;
+  }
+
   .project__bookmark-text {
     display: inline;
     text-align: end;

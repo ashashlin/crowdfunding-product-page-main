@@ -118,6 +118,14 @@ renderProjectData();
 
 document.querySelector('.js-project__bookmark')
   .addEventListener('click', () => {
+    const bookmarkText = document.querySelector('.js-project__bookmark-text');
+
+    if (bookmarkText.innerText === 'Bookmark') {
+      bookmarkText.innerText = 'Bookmarked';
+    } else {
+      bookmarkText.innerText = 'Bookmark';
+    }
+
     document.querySelector('.js-project__bookmark').classList.toggle('bookmarked');
   });
 

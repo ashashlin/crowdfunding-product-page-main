@@ -106,9 +106,11 @@ export function renderSelectModal() {
         Enter your pledge
       </p>
       <div class="pledge-input__input-btn">
-        <div class="pledge-input-box">
+        <div class="pledge-input-box js-pledge-input-box-no-reward">
           $
-          <input class="pledge-amt" type="text" name="pledge-amount" id="pledge-amt-no-reward">
+          <input class="pledge-amt js-pledge-amt js-pledge-amt-no-reward"
+          data-reward-id="no-reward"
+          type="text" name="pledge-amount" id="pledge-amt-no-reward">
         </div>
         <button class="btn project__btn select-modal__btn">
           Continue
@@ -128,9 +130,11 @@ export function renderSelectModal() {
         Enter your pledge
       </p>
       <div class="pledge-input__input-btn">
-        <div class="pledge-input-box">
+        <div class="pledge-input-box js-pledge-input-box-${rewardSelected}">
           $
-          <input class="pledge-amt" type="text" name="pledge-amount" id="pledge-amt-${rewardSelected}">
+          <input class="pledge-amt js-pledge-amt js-pledge-amt-${rewardSelected}"
+          data-reward-id="${rewardSelected}"
+          type="text" name="pledge-amount" id="pledge-amt-${rewardSelected}">
         </div>
         <button class="btn project__btn select-modal__btn">
           Continue
@@ -170,4 +174,22 @@ export function renderSelectModal() {
       renderSelectModal();
     });
   });
+
+  const pledgeInputs = document.querySelectorAll('.js-pledge-amt');
+
+  pledgeInputs.forEach((input) => {
+    input.addEventListener('click', () => {
+      const {rewardId} = input.dataset;
+      const inputBox = document.querySelector(`.js-pledge-input-box-${rewardId}`);
+
+      inputBox.classList.add('active');
+
+      document.body.addEventListener('click', (e) => {
+        if (!(e.target.classList.contains(`js-pledge-amt-${rewardId}`))) {
+          inputBox.classList.remove('active');
+        }
+      });
+    });
+  });
+
 }
