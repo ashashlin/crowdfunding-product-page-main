@@ -1,3 +1,5 @@
+import { renderSelectModal } from "../scripts/selectModal.js";
+
 export let rewards = JSON.parse(localStorage.getItem('rewards')) || [{
   id: '1',
   name: 'Bamboo Stand',
@@ -27,6 +29,12 @@ export function selectReward() {
         const {rewardId} = button.dataset;
         rewardSelected = rewardId;
         localStorage.setItem('rewardSelected', rewardSelected);
+
+        renderSelectModal();
+
+        const selectModal = document.querySelector('.js-project__select-modal');
+
+        selectModal.showModal();
       });
     });
 }
