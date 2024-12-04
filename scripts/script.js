@@ -112,6 +112,11 @@ export function renderProjectData() {
 
   document.querySelector('.js-data__container')
     .innerHTML = projectDataHTML;
+
+  const progress = document.querySelector('.js-data__progress');
+  const totalAmt = 100000;
+
+  progress.style.width = `${(backedAmt / totalAmt) * 100}%`;
 }
 
 renderProjectData();

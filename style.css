@@ -330,7 +330,6 @@ a {
 
 .data__progress {
   position: absolute;
-  width: 78%;
   height: .75rem;
   background-color: var(--cyan);
   border-radius: var(--br-1);
