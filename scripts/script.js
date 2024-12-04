@@ -2,7 +2,7 @@ import { rewards, selectReward } from "../data/rewards.js";
 import { projectData } from "../data/projectData.js";
 import { renderSelectModal } from "./selectModal.js";
 
-function renderRewards() {
+export function renderRewards() {
   let rewardsHTML = '';
 
   rewards.forEach((reward) => {
@@ -78,7 +78,7 @@ function renderRewards() {
 
 renderRewards();
 
-function renderProjectData() {
+export function renderProjectData() {
   const {backedAmt} = projectData;
   const {backers} = projectData;
   const {remainingDays} = projectData;

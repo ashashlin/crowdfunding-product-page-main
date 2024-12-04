@@ -4,7 +4,7 @@ const currentDate = dayjs();
 const dueDate = dayjs('2025-01-30');
 const remainingDays = dueDate.diff(currentDate, 'day');
 
-export const projectData = {
+export let projectData = JSON.parse(localStorage.getItem('projectData')) || {
   backedAmt: 89914,
   backers: 5007,
   remainingDays: remainingDays

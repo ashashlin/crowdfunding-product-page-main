@@ -1,4 +1,6 @@
+import { projectData } from "../data/projectData.js";
 import { rewards, updateRewardSelected } from "../data/rewards.js";
+import { renderProjectData, renderRewards } from "./script.js";
 
 export function renderSelectModal() {
   const rewardSelected = localStorage.getItem('rewardSelected');
@@ -112,7 +114,8 @@ export function renderSelectModal() {
           data-reward-id="no-reward"
           type="text" name="pledge-amount" id="pledge-amt-no-reward">
         </div>
-        <button class="btn project__btn select-modal__btn">
+        <button class="btn project__btn select-modal__btn js-select-modal__btn"
+        data-reward-id="no-reward">
           Continue
         </button>
       </div>
@@ -136,7 +139,8 @@ export function renderSelectModal() {
           data-reward-id="${rewardSelected}"
           type="text" name="pledge-amount" id="pledge-amt-${rewardSelected}">
         </div>
-        <button class="btn project__btn select-modal__btn">
+        <button class="btn project__btn select-modal__btn js-select-modal__btn"
+        data-reward-id="${rewardSelected}">
           Continue
         </button>
       </div>
@@ -192,4 +196,50 @@ export function renderSelectModal() {
     });
   });
 
+  const continueBtns = document.querySelectorAll('.js-select-modal__btn');
+
+  continueBtns.forEach((button) => {
+    button.addEventListener('click', () => {
+      const {rewardId} = button.dataset;
+      const inputElement = document.querySelector(`.js-pledge-amt-${rewardId}`);
+      const input = Number(inputElement.value);
+
+      projectData.backedAmt += input;
+      projectData.backers++;
+
+      localStorage.setItem('projectData', JSON.stringify(projectData));
+
+      let matchingReward;
+
+      rewards.forEach((reward) => {
+        if (reward.id === rewardId) {
+          matchingReward = reward;
+        }
+      });
+
+      if (matchingReward) {
+        matchingReward.quantity--;
+
+        localStorage.setItem('rewards', JSON.stringify(rewards));
+      }
+
+      const selectModal = document.querySelector('.js-project__select-modal');
+
+      selectModal.close();
+
+      renderProjectData();
+      renderRewards();
+
+      const successModal = document.querySelector('.js-project__success-modal');
+
+      successModal.showModal();
+    });
+  });
+
+  document.querySelector('.js-select-modal__close')
+    .addEventListener('click', () => {
+      const selectModal = document.querySelector('.js-project__select-modal');
+
+      selectModal.close();
+    });
 }

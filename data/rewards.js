@@ -1,4 +1,4 @@
-export const rewards = [{
+export let rewards = JSON.parse(localStorage.getItem('rewards')) || [{
   id: '1',
   name: 'Bamboo Stand',
   pledgeAmt: 25,
