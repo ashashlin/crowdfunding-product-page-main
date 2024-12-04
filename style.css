@@ -112,6 +112,10 @@ a {
   justify-content: space-between;
 }
 
+.header__open-nav.hide {
+  display: none;
+}
+
 .header ul {
   list-style: none;
 }
@@ -122,14 +126,24 @@ a {
   overflow: hidden;
 }
 
+.header__close-nav.show {
+  position: absolute;
+  top: 2.2rem;
+  right: 1.5rem;
+  max-height: 3rem;
+  z-index: 100;
+}
+
 .header__nav.active {
   position: absolute;
+  top: 5.5rem;
   left: 50%;
   transform: translateX(-50%);
   width: 87%;
   max-width: 45rem;
   max-height: 50rem;
-  overflow-y: auto;
+  transition: 150ms ease-in-out;
+  z-index: 100;
 }
 
 .header__nav-list {
@@ -162,6 +176,7 @@ a {
   position: absolute;
   inset: 0;
   background-image: linear-gradient(rgba(0 0 0 / .3), var(--white));
+  z-index: 10;
 }
 
 .main {

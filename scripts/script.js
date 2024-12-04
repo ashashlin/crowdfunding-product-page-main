@@ -140,3 +140,23 @@ document.querySelector('.js-project__back-btn')
     renderSelectModal();
     selectModal.showModal();
   });
+
+const openNav = document.querySelector('.js-header__open-nav');
+
+openNav.addEventListener('click', () => {
+  const nav = document.querySelector('.js-header__nav');
+  const overlay = document.querySelector('.js-overlay');
+  const closeNav = document.querySelector('.js-header__close-nav');
+
+  nav.classList.add('active');
+  overlay.classList.add('show');
+  openNav.classList.add('hide');
+  closeNav.classList.add('show');
+
+  closeNav.addEventListener('click', () => {
+    nav.classList.remove('active');
+    overlay.classList.remove('show');
+    openNav.classList.remove('hide');
+    closeNav.classList.remove('show');
+  });
+});
